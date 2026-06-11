@@ -10,7 +10,8 @@
     "seed": "tsx scripts/seed.ts",
     "sample": "tsx scripts/generate-sample.ts",
     "db:push": "drizzle-kit push",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --tsconfig tsconfig.json scripts/test-parsers.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",

@@ -41,10 +41,11 @@ async function readDbSnapshot(): Promise<Snapshot | null> {
     funds: FUNDS,
     holdings: holdings.map((h) => ({ ...h, quarter: h.quarter as Quarter })),
     deltas: deltas.map((d) => ({ ...d, changeType: d.changeType as HoldingChangeType })),
-    insiders: insiders.map(({ id: _id, ...i }) => ({
-      ...i,
-      txType: i.txType as "buy" | "sell",
-    })),
+    insiders: insiders.map((row) => {
+      const { id: _omitted, ...i } = row;
+      void _omitted;
+      return { ...i, txType: i.txType as "buy" | "sell" };
+    }),
     shortInterest: shorts,
     etfFlows: flows.map((f) => ({
       ...f,

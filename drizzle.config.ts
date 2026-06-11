@@ -5,7 +5,6 @@ export default defineConfig({
   out: "./drizzle",
   dialect: "postgresql",
   dbCredentials: {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     url: process.env.DATABASE_URL!,
   },
 });
