@@ -53,7 +53,7 @@ export default async function FundPage({
     <div>
       <FadeIn>
         <div className="flex items-center gap-4">
-          <Avatar name={fund.manager} size="lg" />
+          <Avatar name={fund.manager} size="lg" src={fund.photo} />
           <div className="min-w-0">
             <h1 className="truncate font-sans text-2xl font-semibold tracking-tight">
               {fund.manager}

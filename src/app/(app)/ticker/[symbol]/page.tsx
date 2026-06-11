@@ -72,7 +72,7 @@ export default async function TickerPage({
                   href={`/fund/${fund?.slug ?? ""}`}
                   className="card card-hover flex items-center gap-3 px-3.5 py-3"
                 >
-                  <Avatar name={fund?.manager ?? h.fundName} size="sm" />
+                  <Avatar name={fund?.manager ?? h.fundName} size="sm" src={fund?.photo} />
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-semibold">
                       {fund?.manager ?? h.fundName}

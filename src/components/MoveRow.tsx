@@ -39,7 +39,7 @@ export function MoveRow({ move, showFund = true }: { move: Move; showFund?: bool
       className="card card-hover flex items-center gap-3 px-3.5 py-3"
     >
       {showFund ? (
-        <Avatar name={manager} />
+        <Avatar name={manager} src={fundByCik.get(move.fundCik)?.photo} />
       ) : (
         <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-edge bg-bg font-mono text-[0.65rem] font-medium text-data">
           {move.ticker.slice(0, 4)}

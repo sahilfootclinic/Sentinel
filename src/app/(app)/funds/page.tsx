@@ -39,7 +39,7 @@ export default async function FundsPage() {
                 href={`/fund/${f.slug}`}
                 className="card card-hover flex items-center gap-3 px-3.5 py-3"
               >
-                <Avatar name={f.manager} />
+                <Avatar name={f.manager} src={f.photo} />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold">{f.manager}</p>
                   <p className="truncate text-xs text-txt2">{f.name}</p>

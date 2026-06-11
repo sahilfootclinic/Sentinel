@@ -49,6 +49,8 @@ export interface FundInfo {
   slug: string;
   /** The public figure the fund is known by, e.g. "Warren Buffett". */
   manager: string;
+  /** CC-licensed photo URL (Wikimedia Commons); falls back to monogram avatar. */
+  photo?: string;
 }
 
 export interface HoldingRow {

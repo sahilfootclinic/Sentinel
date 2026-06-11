@@ -1,4 +1,6 @@
-/** Monogram avatar with a deterministic gradient per name — Autopilot-style. */
+"use client";
+
+import { useState } from "react";
 
 const GRADIENTS = [
   "linear-gradient(135deg, #4F8EF7, #7C3AED)",
@@ -15,19 +17,47 @@ function hash(s: string): number {
   return Math.abs(h);
 }
 
-export function Avatar({ name, size = "md" }: { name: string; size?: "sm" | "md" | "lg" }) {
+export function Avatar({
+  name,
+  size = "md",
+  src,
+}: {
+  name: string;
+  size?: "sm" | "md" | "lg";
+  src?: string;
+}) {
+  const [imgError, setImgError] = useState(false);
+
   const initials = name
     .split(/\s+/)
     .map((w) => w[0])
     .slice(0, 2)
     .join("")
     .toUpperCase();
+
   const cls =
     size === "lg"
       ? "h-14 w-14 text-lg"
       : size === "sm"
         ? "h-8 w-8 text-[0.65rem]"
         : "h-10 w-10 text-xs";
+
+  if (src && !imgError) {
+    return (
+      <span
+        className={`${cls} relative flex shrink-0 overflow-hidden rounded-full`}
+      >
+        <img
+          src={src}
+          alt={name}
+          className="h-full w-full object-cover object-top"
+          onError={() => setImgError(true)}
+          referrerPolicy="no-referrer"
+        />
+      </span>
+    );
+  }
+
   return (
     <span
       aria-hidden

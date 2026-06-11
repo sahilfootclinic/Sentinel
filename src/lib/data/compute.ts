@@ -232,3 +232,15 @@ export function latestShortRatio(snap: Snapshot, ticker: string): ShortInterestR
     .filter((s) => s.ticker === ticker)
     .sort((a, b) => b.asOfDate.localeCompare(a.asOfDate))[0];
 }
+
+/** Top N tickers by latest short ratio — the "short pressure watch" feed. */
+export function topShortPressure(snap: Snapshot, top = 6): ShortInterestRow[] {
+  const latest = new Map<string, ShortInterestRow>();
+  for (const s of snap.shortInterest) {
+    const existing = latest.get(s.ticker);
+    if (!existing || s.asOfDate > existing.asOfDate) latest.set(s.ticker, s);
+  }
+  return [...latest.values()]
+    .sort((a, b) => b.shortRatio - a.shortRatio)
+    .slice(0, top);
+}
