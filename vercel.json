@@ -1,0 +1,8 @@
+{
+  "crons": [
+    { "path": "/api/cron/ingest-13f", "schedule": "0 20 1 2,5,8,11 *" },
+    { "path": "/api/cron/ingest-form4", "schedule": "0 20 * * *" },
+    { "path": "/api/cron/ingest-etf-flows", "schedule": "0 21 * * *" },
+    { "path": "/api/cron/ingest-short-interest", "schedule": "0 22 1,15 * *" }
+  ]
+}
