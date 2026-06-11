@@ -47,6 +47,8 @@ export interface FundInfo {
   cik: string; // zero-padded 10-digit CIK
   name: string;
   slug: string;
+  /** The public figure the fund is known by, e.g. "Warren Buffett". */
+  manager: string;
 }
 
 export interface HoldingRow {

@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { FadeIn } from "@/components/FadeIn";
+import { Avatar } from "@/components/Avatar";
 import { MoveRow } from "@/components/MoveRow";
 import { SourceTag } from "@/components/SourceTag";
 import { SectorShiftChart } from "@/components/charts/SectorShiftChart";
@@ -51,10 +52,35 @@ export default async function FundPage({
   return (
     <div>
       <FadeIn>
-        <h1 className="font-sans text-2xl font-semibold tracking-tight">{fund.name}</h1>
-        <p className="mt-1 font-mono text-sm text-data">
-          {usd(o.totalLatestUsd)} tracked ({quarterLabel(snap.meta.latestQuarter)})
-        </p>
+        <div className="flex items-center gap-4">
+          <Avatar name={fund.manager} size="lg" />
+          <div className="min-w-0">
+            <h1 className="truncate font-sans text-2xl font-semibold tracking-tight">
+              {fund.manager}
+            </h1>
+            <p className="truncate text-sm text-txt2">{fund.name}</p>
+          </div>
+        </div>
+        <div className="mt-4 flex gap-3">
+          <div className="card flex-1 px-3.5 py-2.5">
+            <p className="label">Tracked</p>
+            <p className="mt-1 font-mono text-lg font-semibold">{usd(o.totalLatestUsd)}</p>
+          </div>
+          <div className="card flex-1 px-3.5 py-2.5">
+            <p className="label">QoQ</p>
+            <p
+              className={`mt-1 font-mono text-lg font-semibold ${
+                o.totalLatestUsd >= o.totalPriorUsd ? "text-pos" : "text-neg"
+              }`}
+            >
+              {o.totalPriorUsd > 0
+                ? `${o.totalLatestUsd >= o.totalPriorUsd ? "+" : ""}${(
+                    ((o.totalLatestUsd - o.totalPriorUsd) / o.totalPriorUsd) * 100
+                  ).toFixed(1)}%`
+                : "—"}
+            </p>
+          </div>
+        </div>
         <SourceTag
           parts={["13F data", quarterLabel(snap.meta.latestQuarter), "filed up to 45 days after quarter end"]}
         />

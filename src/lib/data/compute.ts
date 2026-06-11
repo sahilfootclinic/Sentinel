@@ -100,6 +100,15 @@ export function sectorMoves(snap: Snapshot, sector: GicsSector, top = 5) {
   return { buys, exits };
 }
 
+/** The biggest moves across all funds this quarter — the dashboard feed. */
+export function latestMoves(snap: Snapshot, top = 10): Move[] {
+  return [...snap.deltas]
+    .filter((d) => d.ticker !== "?")
+    .sort((a, b) => Math.abs(deltaFlow(b)) - Math.abs(deltaFlow(a)))
+    .slice(0, top)
+    .map(toMove);
+}
+
 /** Tickers ranked by absolute institutional flow — drives Form 4 targeting. */
 export function topMovedTickers(snap: Snapshot, top = 20): string[] {
   const byTicker = new Map<string, number>();

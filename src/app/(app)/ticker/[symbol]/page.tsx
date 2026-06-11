@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
+import { Avatar } from "@/components/Avatar";
 import { SourceTag } from "@/components/SourceTag";
 import { ShortBadge } from "@/components/ShortBadge";
 import { OwnershipChart } from "@/components/charts/OwnershipChart";
@@ -63,20 +64,31 @@ export default async function TickerPage({
         <FadeIn delay={0.1} className="mt-6">
           <h2 className="label mb-3">Fund moves this quarter</h2>
           <div className="flex flex-col gap-2">
-            {view.holders.map((h) => (
-              <Link
-                key={h.fundCik}
-                href={`/fund/${fundByCik.get(h.fundCik)?.slug ?? ""}`}
-                className="card card-hover flex items-center justify-between px-3 py-2.5"
-              >
-                <span className="text-sm font-medium">{h.fundName}</span>
-                <span
-                  className={`font-mono text-sm ${h.flowUsd >= 0 ? "text-pos" : "text-neg"}`}
+            {view.holders.map((h) => {
+              const fund = fundByCik.get(h.fundCik);
+              return (
+                <Link
+                  key={h.fundCik}
+                  href={`/fund/${fund?.slug ?? ""}`}
+                  className="card card-hover flex items-center gap-3 px-3.5 py-3"
                 >
-                  {signedUsd(h.flowUsd)} · {pct(h.pctChange, 0)}
-                </span>
-              </Link>
-            ))}
+                  <Avatar name={fund?.manager ?? h.fundName} size="sm" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-semibold">
+                      {fund?.manager ?? h.fundName}
+                    </p>
+                    <p className="truncate text-xs text-txt2">{h.fundName}</p>
+                  </div>
+                  <span
+                    className={`shrink-0 font-mono text-sm font-semibold ${
+                      h.flowUsd >= 0 ? "text-pos" : "text-neg"
+                    }`}
+                  >
+                    {signedUsd(h.flowUsd)} · {pct(h.pctChange, 0)}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </FadeIn>
       )}
